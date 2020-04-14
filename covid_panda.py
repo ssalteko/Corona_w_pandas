@@ -66,13 +66,14 @@ def add_sum_column_for_subregion(df,subregions):
     # print("\n\ndf before: \n\n",df,"\n\n")
 
     #### Make the df only have the regions of interest
-    df2 = pd.DataFrame()
-    # print(df2)
-    for region in subregions:
+    df2 = pd.DataFrame() #Create an empty df.
     
-        df1 = df[df['Province/State'] == region]
+    for subregion in subregions:
+    # itterate through the list of subregions taking the rows with the subregion value in the Province/State column 
+    # and concatinating it with the empty dataframe.
+        df1 = df[df['Province/State'] == subregion]
         df2 = pd.concat([df2,df1])
-    df = df2.reset_index()
+    df = df2.reset_index() #reset the index for later integer value opperations.
 
     ### Groupby sum of with simlar province/state, will this will cause problems when a country has multiple regions?
     df1 = df.groupby('Province/State', axis = 0).sum().reset_index()
@@ -81,12 +82,14 @@ def add_sum_column_for_subregion(df,subregions):
     subregions_t = []
     for region in subregions:
         subregions_t += [f'{region} sum']
-    # for i in range(0,len(df1)):
-    df1.loc[:,'Province/State'] = subregions_t
+    
+    subregions_t.sort() #it seems that loc is alphebatizing or something sow the list must be sorted.
+
+    df1.loc[:,'Province/State'] = subregions_t #Set the cells to the sorted list of regions_sum.
         
     ### Concatinate the origional df and the sum_df by vertically.
-    df = pd.concat([df,df1]).set_index('Province/State').T
-    df = df.drop(['index'], axis = 0)
+    df = pd.concat([df,df1]).set_index('Province/State').T 
+    df = df.drop(['index'], axis = 0) #This causes issues for some reason.
 
     return df
 

@@ -7,11 +7,11 @@ def main():
    
     yscale = 'linear'
     day_tick = 7
-    countries = ['Spain',"United Kingdom"]  
+    # countries = ['Spain',"United Kingdom"]  
     
 
     # global_Con_Rec_Dead(countries)    
-    global_Con_Rec_dead_first_day(countries)
+    # global_Con_Rec_dead_first_day(countries)
     
     # UK_Con_Rec_dead()
     #### US cases ####
@@ -26,10 +26,16 @@ def main():
   "Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]
     the_south = ["Alabama",'Arkansas',"Florida","Georgia","Kentucky","Louisiana","Mississippi","Missouri","North Carolina","South Carolina","Tennessee",]
     west_coast = ['Washington', 'Oregon', 'California']
-    states = ['New York',"Oregon"]
+    
+    big_states = [ 'Michigan', 'New Jersey', 'Massachusetts', 'Illinois', 'California', 'Connecticut','Louisiana', 'Georgia', 'Florida']
+    # big_states = ['Georgia', 'Florida', 'New York']
+    states = ['New York']
 
+    US_con_dead_sums(states,'Some states')
     # US_con_dead_sums(the_south,'South Eastern US')
     # US_con_dead_sums(west_coast, 'West Coast')
+    # US_con_dead_sums(big_states, 'big states')
+
 
     plt.show()
     
