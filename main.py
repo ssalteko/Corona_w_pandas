@@ -5,11 +5,11 @@ from covid_graphs import *
 
 def main():
    
-    # countries = ['Spain',"United Kingdom"]  
+    countries = ['Spain',"United Kingdom"]  
     
 
-    # global_Con_Rec_Dead(countries)    
-    # global_Con_Rec_dead_first_day(countries)
+    global_Con_Rec_Dead(countries, 'Europe', 'linear')    
+    # global_Con_Rec_dead_first_day(countries, 'Europe', 'linear')
     
     # UK_Con_Rec_dead()
     #### US cases ####
@@ -23,13 +23,13 @@ def main():
   # "Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah",
   # "Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]
   #   the_south = ["Alabama",'Arkansas',"Florida","Georgia","Kentucky","Louisiana","Mississippi","Missouri","North Carolina","South Carolina","Tennessee",]
-  #   west_coast = ['Washington', 'Oregon', 'California']
+    west_coast = ['Washington', 'California', 'Oregon']
   #   states = ['New York',"Oregon"]
 
     # US_con_dead_sums(the_south,'South Eastern US')
-    # US_con_dead_sums(west_coast, 'West Coast')
+    US_con_dead_sums(west_coast, 'West Coast','linear')
 
-    # plt.show()
+    plt.show()
     
     return
 

@@ -2,29 +2,29 @@ import matplotlib.pyplot as plt
 from covid_plotting import *
 
 
-def global_Con_Rec_Dead(regions):
+def global_Con_Rec_Dead(regions,fig_name,yscale):
     ''' This is a graph that has the confirmed, recovered, and deaths. '''
 
-    fig = plt.figure(num = 'Global confirmed, recovered and dead.',figsize = (10,7))
-    # fig.figsize((10,10))
-    plt.suptitle("Global confirmed, recovered \n and dead.")
+    fig = plt.figure(num = f'{fig_name} confirmed, recovered and dead.',figsize = (10,7))
+    
+    plt.suptitle("Global confirmed, recovered, \n and dead.")
     
     url = get_url('confirmed','global')
-    print(url)
+
     global_confirmed_df= get_global_covid_df(url)
 
     url = get_url('recovered','global')
     global_recovered_df = get_global_covid_df(url)
     
     url = get_url('deaths','global')
-    print(url)
+    
     global_dead_df = get_global_covid_df(url)
 
     # print(global_dead_df)
     
     
     days_tick = 12 #days between tick marks
-    yscale = 'linear'
+    
     l = len(global_recovered_df.T)
     start = 40  # day number past epoch to start plotting
  
@@ -64,7 +64,7 @@ def global_Con_Rec_Dead(regions):
 
 
 
-def US_con_dead_sums(regions,fig_name):
+def US_con_dead_sums(regions,fig_name,yscale):
     ''' Creates graph of US state sums '''
 
     fig = plt.figure(num = fig_name,figsize = (10,7))
@@ -77,10 +77,9 @@ def US_con_dead_sums(regions,fig_name):
     dead_US_df = get_us_covid_df(url)
 
     
-    
     start = 60
     days_tick = 7
-    yscale = 'linear'
+   
 
     l = len(confirmed_US_df.T)
 
@@ -110,23 +109,7 @@ def US_con_dead_sums(regions,fig_name):
     
     return
 
-def UK_Con_Rec_dead():
-    ''' plots United kingdom sub regions with a sum of whole country. '''
-
-    url = get_url('confirmed','global')
-    UnK_df_confirmed = get_UK_covid_w_sub_regions_df(url)
-    # print(UnK_df_confirmed)
-
-    url = get_url('recovered','global')
-    Unk_recovered_df = get_UK_covid_w_sub_regions_df(url)
-    
-    url = get_url('deaths','global')
-    Unk_dead_df = get_UK_covid_w_sub_regions_df(url)
-
-    # print('Unk_dead_df: ',Unk_dead_df)
-    return
-
-def global_Con_Rec_dead_first_day(regions):
+def global_Con_Rec_dead_first_day(regions,yscale):
     ''' This is a graph that has the confirmed, recovered, and deaths. '''
 
     fig = plt.figure(num = 'Global confirmed, recovered and dead.',figsize = (10,7))

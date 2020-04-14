@@ -31,16 +31,6 @@ def get_UK_covid_w_sub_regions_df(file_name):
     return df
 
 
-# def get_us_covid_df(file_name):
-#     '''creates a df from covid data.'''
-
-#     df = pd.read_csv(file_name)
-#     df = df.drop(['UID', 'iso2','iso3','code3','Lat','Long_','FIPS','Country_Region','Combined_Key'], axis = 1)
-#     df = df.set_index('Province_State').T
-
-#     return df
-
-
 def get_us_covid_df(file_name):
     '''creates a df from covid data.'''
 
@@ -50,7 +40,7 @@ def get_us_covid_df(file_name):
     df['Country/Region'] = 'United States'
 
     columns = df.columns.tolist()
-    columns.insert(2, columns.pop(-1)) #Move 
+    columns.insert(2, columns.pop(-1)) #Move the last element to a place in the list without itself
     columns.insert(2, columns.pop(0))
 
     df = df[columns]
@@ -61,13 +51,11 @@ def get_us_covid_df(file_name):
 
 
 def add_sum_column_for_subregion(df,subregions):
-    ''' Creates another column with the sums of the multiple regions within an area.'''
-     #### the df
-    # print("\n\ndf before: \n\n",df,"\n\n")
+    ''' Creates another column with the sums of the multiple regions within an country.'''
 
     #### Make the df only have the regions of interest
     df2 = pd.DataFrame()
-    # print(df2)
+    
     for region in subregions:
     
         df1 = df[df['Province/State'] == region]
@@ -81,7 +69,7 @@ def add_sum_column_for_subregion(df,subregions):
     subregions_t = []
     for region in subregions:
         subregions_t += [f'{region} sum']
-    # for i in range(0,len(df1)):
+    subregions_t.sort()
     df1.loc[:,'Province/State'] = subregions_t
         
     ### Concatinate the origional df and the sum_df by vertically.
@@ -91,13 +79,11 @@ def add_sum_column_for_subregion(df,subregions):
     return df
 
 def add_sum_column_for_region(df,regions):
-    ''' Creates another column with the sums of the multiple regions within an area.'''
-     #### the df
-    # print("\n\ndf before: \n\n",df,"\n\n")
+    ''' Creates another column with the sums of the multiple countires with multiple colonies.'''
 
     #### Make the df only have the regions of interest
     df2 = pd.DataFrame()
-    # print(df2)
+
     for region in regions:
     
         df1 = df[df['Country/Region'] == region]
@@ -111,13 +97,13 @@ def add_sum_column_for_region(df,regions):
     regions_t = []
     for region in regions:
         regions_t += [f'{region} sum']
-    # for i in range(0,len(df1)):
+    
     df1.loc[:,'Country/Region'] = regions_t
         
     ### Concatinate the origional df and the sum_df by vertically.
     df = pd.concat([df,df1]).set_index('Country/Region').T
     df = df.drop(['index'], axis = 0)
-    # print(df)
+    
     return df
 
     
