@@ -80,7 +80,7 @@ def US_con_dead_sums(regions,fig_name):
     
     start = 60
     days_tick = 7
-    yscale = 'log'
+    yscale = 'linear'
 
     l = len(confirmed_US_df.T)
 
