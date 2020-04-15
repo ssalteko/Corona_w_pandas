@@ -110,6 +110,7 @@ def add_diff_column_for_region(df,regions):
     ''' adds a column to the df with the difference between succesive values. '''
     print(abs(df.iloc[3:].diff()))
     # print(df[regions][:3].diff())
-    #Testeroo
+    #Testeroo 
+    # #LOOK MA I LOADED IT TOO GIT FROM ASI
     
     return df
