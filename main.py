@@ -5,10 +5,10 @@ from covid_graphs import *
 
 def main():
    
-    countries = ['Spain',"United Kingdom"]  
+    countries = ['Spain',"Germany"]  
     
 
-    # global_Con_Rec_Dead(countries, 'Europe', 'linear')    
+    global_Con_Rec_Dead(countries, 'Europe', 'linear')    
     # global_Con_Rec_dead_first_day(countries, 'Europe', 'linear')
     
     # UK_Con_Rec_dead()
@@ -22,12 +22,12 @@ def main():
   # "North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania",
   # "Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah",
   # "Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]
-  #   the_south = ["Alabama",'Arkansas',"Florida","Georgia","Kentucky","Louisiana","Mississippi","Missouri","North Carolina","South Carolina","Tennessee",]
-    rise = ['Michigan']
+    the_south = ["Alabama",'Arkansas',"Florida","Georgia","Kentucky","Louisiana","Mississippi","Missouri","North Carolina","South Carolina","Tennessee",]
+    rise = ['Michigan', 'New Jersey', 'Florida']
   #   states = ['New York',"Oregon"]
 
-    # US_con_dead_sums(the_south,'South Eastern US')
-    US_con_dead_sums(rise, 'Rising','log')
+    # US_con_dead_sums(the_south,'South Eastern US','log')
+    # US_con_dead_sums(rise, 'Rising','log')
 
     plt.show()
     

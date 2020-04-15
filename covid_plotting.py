@@ -11,7 +11,7 @@ def plot_global_regions(df, dtype, regions,start):
     l = df.count()
     
     for region in regions:
-        plt.plot(df[f'{region}'][start:], label = f'{region}')
+        plt.plot(df[f'{region}'][start:], label = f'{region}',marker = "o")
     
   
 def plot_all_subregion_sums(df,subregions,start):

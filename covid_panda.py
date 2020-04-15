@@ -106,4 +106,9 @@ def add_sum_column_for_region(df,regions):
     
     return df
 
+def add_diff_column_for_region(df,regions):
+    ''' adds a column to the df with the difference between succesive values. '''
+    print(abs(df.iloc[3:].diff()))
+    # print(df[regions][:3].diff())
     
+    return df
