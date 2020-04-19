@@ -35,4 +35,8 @@ def plot_all_region_sums(df,regions,start):
         plt.plot(df[f'{region} sum'][start:], label = f'{region} sum',marker = "o")
 
 
+def plot_all_region_diffs(df,regions,start):
+    ''' plots diff columns '''
+    df = add_diff_column_for_region(df,regions).T
 
+  

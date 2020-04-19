@@ -19,7 +19,7 @@ def global_Con_Rec_Dead(regions,fig_name,yscale):
     url = get_url('deaths','global')
     
     global_dead_df = get_global_covid_df(url)
-
+    
     # print(global_dead_df)
     
     
@@ -166,3 +166,35 @@ def global_Con_Rec_dead_first_day(regions,yscale):
     plt.subplots_adjust(hspace = 0.4)
     
     return 
+
+def graph_daily_new_cases(df):
+        # print(df)
+    
+        return
+
+def graph_whole_world_con_dead(regions,yscale):
+    ''' combine both dfs and graph.'''
+
+    url = get_url('confirmed','global')
+    global_df_confirmed = get_global_covid_df(url)
+    
+    url = get_url('deaths','global')
+    global_dead_df = get_global_covid_df(url)
+
+    url = get_url('confirmed','US')
+    confirmed_US_df = get_us_covid_df(url)
+    
+    url = get_url('deaths','US')
+    dead_US_df = get_us_covid_df(url)
+
+    start = 5
+
+    confirmed_df = get_whole_df(global_df_confirmed,confirmed_US_df)
+
+    dead_df = get_whole_df(global_dead_df,dead_US_df)
+
+    plot_all_region_diffs(dead_df,regions,start)
+
+    plot_all_region_diffs(confirmed_df,regions,start)
+
+    
