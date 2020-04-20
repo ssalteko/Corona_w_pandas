@@ -42,6 +42,6 @@ def plot_daily_change(df,regions,start):
     dates = list(df.keys())[1:]
     
     for region in regions:
-     
-        plt.bar(dates[start-1:],df.T[f'{region}'][start:], label = region,alpha = 0.40)
+  
+        plt.bar(dates[start-1:],df.T[f'{region}'][start:], label = region,alpha = 1)
   

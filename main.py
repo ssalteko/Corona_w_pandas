@@ -5,7 +5,7 @@ from covid_graphs import *
 
 def main():
    
-    countries = ['Spain',"Germany",'Italy','United States']  
+    countries = ['Spain',"Germany",'Italy']  
     
 
     # global_Con_Rec_Dead(countries, 'Europe', 'linear')    
@@ -33,7 +33,7 @@ def main():
     # graph_whole_world_con_dead(countries,'linear')
 
     graph_new_daily_change(countries,'linear')
-  
+
     plt.show()
     
 
