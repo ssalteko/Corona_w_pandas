@@ -32,8 +32,8 @@ def main():
 
     # graph_whole_world_con_dead(countries,'linear')
 
-    graph_new_daily_cases(countries,'linear')
-
+    graph_new_daily_change(countries,'linear')
+  
     plt.show()
     
 
