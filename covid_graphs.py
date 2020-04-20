@@ -183,9 +183,11 @@ def graph_whole_world_con_dead(regions,yscale):
 
     url = get_url('confirmed','US')
     confirmed_US_df = get_us_covid_df(url)
-    
+    # confirmed_US_df = add_sum_column_US_df(confirmed_US_df)
+
     url = get_url('deaths','US')
     dead_US_df = get_us_covid_df(url)
+    # dead_US_df = add_sum_column_US_df(dead_US_df)
 
     start = 5
 
@@ -193,8 +195,49 @@ def graph_whole_world_con_dead(regions,yscale):
 
     dead_df = get_whole_df(global_dead_df,dead_US_df)
 
-    plot_all_region_diffs(dead_df,regions,start)
+    # plot_all_region_diffs(dead_df,regions,start)
 
-    plot_all_region_diffs(confirmed_df,regions,start)
+    # plot_all_region_diffs(confirmed_df,regions,start)
 
+    confirmed_df =  add_all_sum_columns(confirmed_df)
+    dead_df = add_all_sum_columns(dead_df) 
+
+    # print(dead_df.loc[['Canada','United Kingdom','United States']])
+    # print(confirmed_df.loc[['Canada','United Kingdom','United States']])
+
+
+
+
+def graph_new_daily_cases(regions,yscale):
+
+    url = get_url('confirmed','global')
+    global_df_confirmed = get_global_covid_df(url)
     
+    
+    url = get_url('confirmed','US')
+    confirmed_US_df = get_us_covid_df(url)
+    # confirmed_US_df = add_sum_column_US_df(confirmed_US_df)
+
+
+    start = 5
+    days_tick = 7 
+
+    confirmed_df = get_whole_df(global_df_confirmed,confirmed_US_df)
+
+    confirmed_df = get_all_CountryRegion_sum_df(confirmed_df)
+
+    confirmed_daily_df = get_daily_change_df(confirmed_df)
+    # print(confirmed_daily_df.loc['United States'])
+
+    plot_daily_change(confirmed_daily_df,regions,start)
+
+    l = len(confirmed_daily_df.T)
+
+    plt.title('New Cases Confirmed daily')
+    plt.xticks(range(0, l-start,days_tick))
+    plt.yscale(yscale)
+    plt.legend()
+    plt.ylabel('confirmed cases daily')
+    plt.xlabel('date')
+
+

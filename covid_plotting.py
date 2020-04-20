@@ -35,8 +35,13 @@ def plot_all_region_sums(df,regions,start):
         plt.plot(df[f'{region} sum'][start:], label = f'{region} sum',marker = "o")
 
 
-def plot_all_region_diffs(df,regions,start):
-    ''' plots diff columns '''
-    df = add_diff_column_for_region(df,regions).T
 
+def plot_daily_change(df,regions,start):
+    ''' Plots a bar graph of the daily change in the df.'''
+    
+    dates = list(df.keys())[1:]
+    
+    for region in regions:
+     
+        plt.bar(dates[start-1:],df.T[f'{region}'][start:], label = region,alpha = 0.40)
   

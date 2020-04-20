@@ -146,14 +146,25 @@ def add_diff_column_for_region(df,regions):
     
 def get_whole_df(df1,df2):
     ''' Concats to dfs by columns'''
-    df2 = get_US_sum_df(df2)
-    df = pd.concat([df1,df2], axis = 0)
 
-    # print(df.loc[df['Country/Region'] == 'United States All'])
+    df = pd.concat([df1,df2], axis = 0)
+    
     return df
 
-def get_US_sum_df(df_US):
-    '''Sums the entire US df'''
+def add_all_sum_columns(df):
+     
+        df_orig = df 
+        df = df.groupby('Country/Region').sum()
+
+        df = pd.concat([df_orig,df.reset_index()])
+        # print(df.loc[df['Country/Region'] == 'United States'])
+
+        return df
+
+
+
+def add_sum_column_US_df(df_US):
+    '''Sums the entire US df and add it to origional df'''
 
     df_orig = df_US
 
@@ -169,5 +180,23 @@ def get_US_sum_df(df_US):
     df = df.reset_index()
 
     df = df.drop(['index'], axis = 1)
+    
+
+    # add_all_sum_columns(df_orig)
+
+    return df
+
+
+
+def get_all_CountryRegion_sum_df(df):
+     
+    df = df.groupby('Country/Region').sum()
+    
+    return df
+
+def get_daily_change_df(df):
+    '''gets a data frame that is the column diff between values..'''
+
+    df = df.diff(axis = 1)
     
     return df
