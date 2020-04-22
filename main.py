@@ -26,19 +26,19 @@ def main():
     # rise = ['Michigan', 'New Jersey', 'Florida']
   #   states = ['New York',"Oregon"]
 
-    # US_con_dead_sums(the_south,'South Eastern US','log')
-    # US_con_dead_sums(rise, 'Rising','log')
+    US_con_dead_sums(['Kentucky','Georgia','Massachusetts','New York'],'South Eastern US','linear')
+    # US_con_dead_sums(the_south, 'Rising','log')
 
 
     # graph_whole_world_con_dead(countries,'linear')
 
-    graph_new_daily_change(countries,'linear')
+    graph_new_daily_change(['United Kingdom'],'linear')
 
     plt.show()
     
-
-
     return
+
+
 
 if __name__ == "__main__":
     main()

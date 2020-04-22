@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 from covid_panda import *
 import pandas as pd
 
-#### TODO fix multiple lables for countries with multi colonies
 
 def plot_global_regions(df, dtype, regions,start):
     ''' plot global df and label for legend. '''
@@ -36,12 +35,22 @@ def plot_all_region_sums(df,regions,start):
 
 
 
-def plot_daily_change(df,regions,start):
+def plot_daily_change(df1,df2,regions,start,window_size):
     ''' Plots a bar graph of the daily change in the df.'''
     
-    dates = list(df.keys())[1:]
+    df = get_whole_df(df1,df2)
+
+    df = get_all_CountryRegion_sum_df(df)
+
+    df = get_daily_change_df(df)
     
+    df1 = df.rolling(window_size, axis = 1).mean()
+    
+    dates = list(df.keys())[1:]
+
     for region in regions:
-  
-        plt.bar(dates[start-1:],df.T[f'{region}'][start:], label = region,alpha = 1)
+        plt.bar(dates[start-1:],df.T[region][start:], label = region,alpha = 1)
+        plt.plot(df1.T[region][start:], color = 'red')
+
+    return df
   

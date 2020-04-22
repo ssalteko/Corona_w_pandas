@@ -77,7 +77,7 @@ def US_con_dead_sums(regions,fig_name,yscale):
     dead_US_df = get_us_covid_df(url)
 
     
-    start = 60
+    start = 40
     days_tick = 7
    
 
@@ -213,18 +213,8 @@ def graph_new_daily_change(regions,yscale):
     url = get_url('confirmed','global')
     global_df_confirmed = get_global_covid_df(url)
     
-    
     url = get_url('confirmed','US')
     confirmed_US_df = get_us_covid_df(url)
-    # confirmed_US_df = add_sum_column_US_df(confirmed_US_df)
-
-    confirmed_df = get_whole_df(global_df_confirmed,confirmed_US_df)
-
-    confirmed_df = get_all_CountryRegion_sum_df(confirmed_df)
-
-    confirmed_daily_df = get_daily_change_df(confirmed_df)
-
-
 
     url = get_url('deaths','global')
     global_df_dead = get_global_covid_df(url)
@@ -232,23 +222,17 @@ def graph_new_daily_change(regions,yscale):
     url = get_url('deaths','US')
     dead_US_df = get_us_covid_df(url)
 
-    dead_df = get_whole_df(global_df_dead,dead_US_df)
-
-    dead_df = get_all_CountryRegion_sum_df(dead_df)
-
-    dead_daily_df = get_daily_change_df(dead_df)
-
     fig = plt.figure(num = 'Daily Change.',figsize = (10,7))
 
-
-    start = 5
+    window_size = 3
+    start = 50
     days_tick = 7 
 
     # print(confirmed_daily_df.loc['United States'])
     plt.subplot(211)
-    plot_daily_change(confirmed_daily_df,regions,start)
+    l = len(plot_daily_change(global_df_confirmed,confirmed_US_df,regions,start,window_size).T)
 
-    l = len(confirmed_daily_df.T)
+    # l = len(confirmed_daily_df.T)
 
     plt.title('New Cases Confirmed daily')
     plt.xticks(range(0, l-start,days_tick))
@@ -258,9 +242,9 @@ def graph_new_daily_change(regions,yscale):
     plt.xlabel('date')
 
     plt.subplot(212)
-    plot_daily_change(dead_daily_df,regions,start)
+    l = len(plot_daily_change(global_df_dead,dead_US_df,regions,start,window_size).T)
 
-    l = len(dead_daily_df.T)
+    # l = len(dead_daily_df.T)
 
     plt.title('Deaths')
     plt.xticks(range(0, l-start,days_tick))

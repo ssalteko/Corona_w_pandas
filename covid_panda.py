@@ -1,5 +1,9 @@
 import pandas as pd
+
+
 def get_url(dtype, region):
+    ''' Returns valid url for test type and region.'''
+
     url = f'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_{dtype}_{region}.csv'
     
     return url
@@ -9,6 +13,7 @@ def get_global_covid_df(file_name):
     '''creates a df from covid data.'''
 
     df = pd.read_csv(file_name)
+
     df = df.drop(['Lat','Long'], axis = 1)
     df['Population'] = 0
     df['Admin2'] = None
@@ -21,10 +26,13 @@ def get_global_covid_df(file_name):
 
     return df
 
+
+
 def get_UK_covid_w_sub_regions_df(file_name):
     '''creates a df from covid data.'''
 
     df = pd.read_csv(file_name)
+
     df = df.loc[df['Country/Region'] == 'United Kingdom'] ## finds all rows with value UK in country/region
     df = df.drop(['Lat','Long'],axis = 1)
     
@@ -35,6 +43,7 @@ def get_us_covid_df(file_name):
     '''creates a df from covid data.'''
     
     df = pd.read_csv(file_name)
+
     df = df.drop(['UID', 'iso2','iso3','code3','Lat','Long_','FIPS','Country_Region','Combined_Key'], axis = 1)
     df = df.rename(columns={'Province_State': 'Province/State'})
     df['Country/Region'] = 'United States'
@@ -49,14 +58,10 @@ def get_us_covid_df(file_name):
 
 
 
-
 def add_sum_column_for_subregion(df,subregions):
     ''' Creates another column with the sums of the multiple regions within an country.'''
 
     #### Make the df only have the regions of interest
-
-    #TODO add the below function for compactnes. 
-    # df = df[df['Country/Region'].isin(regions)]
 
     df2 = pd.DataFrame()
     
@@ -64,16 +69,21 @@ def add_sum_column_for_subregion(df,subregions):
     
         df1 = df[df['Province/State'] == region]
         df2 = pd.concat([df2,df1])
-    df = df2.reset_index()
 
+    df = df2.reset_index()
+   
     ### Groupby sum of with simlar province/state, will this will cause problems when a country has multiple regions?
     df1 = df.groupby('Province/State', axis = 0).sum().reset_index()
 
     ###Change the cell value so that it has the proper column title in the final transposed df/array.
     subregions_t = []
+
     for region in subregions:
+
         subregions_t += [f'{region} sum']
+
     subregions_t.sort()
+  
     df1.loc[:,'Province/State'] = subregions_t
         
     ### Concatinate the origional df and the sum_df by vertically.
@@ -81,6 +91,8 @@ def add_sum_column_for_subregion(df,subregions):
     df = df.drop(['index'], axis = 0)
 
     return df
+
+
 
 def add_sum_column_for_region(df,regions):
     ''' Creates another column with the sums of the multiple countires with multiple colonies.'''
@@ -95,6 +107,7 @@ def add_sum_column_for_region(df,regions):
     
         df1 = df[df['Country/Region'] == region]
         df2 = pd.concat([df2,df1])
+
     df = df2.reset_index()
 
     ### Groupby sum of with simlar province/state, will this will cause problems when a country has multiple regions?
@@ -103,6 +116,7 @@ def add_sum_column_for_region(df,regions):
     ###Change the cell value so that it has the proper column title in the final transposed df/array.
     regions_t = []
     for region in regions:
+
         regions_t += [f'{region} sum']
     
     df1.loc[:,'Country/Region'] = regions_t
@@ -117,6 +131,7 @@ def add_sum_column_for_region(df,regions):
 
 def add_diff_column_for_region(df,regions):
     ''' Creates another column with the sums of the multiple countires with multiple colonies.'''
+
     df_orig = df
     
     df = df[df['Country/Region'].isin(regions)] #### Make the df only have the regions of interest
@@ -140,10 +155,10 @@ def add_diff_column_for_region(df,regions):
     df = pd.concat([df_orig,df.T])
     df = df.set_index(['Country/Region','Province/State','Admin2'])
     
-    # print(df)
     return df
     
     
+
 def get_whole_df(df1,df2):
     ''' Concats to dfs by columns'''
 
@@ -151,20 +166,21 @@ def get_whole_df(df1,df2):
     
     return df
 
+
+
 def add_all_sum_columns(df):
+    '''adds a column that is the sum of the Country/Region column.'''
      
         df_orig = df 
         df = df.groupby('Country/Region').sum()
-
         df = pd.concat([df_orig,df.reset_index()])
-        # print(df.loc[df['Country/Region'] == 'United States'])
-
+      
         return df
 
 
 
 def add_sum_column_US_df(df_US):
-    '''Sums the entire US df and add it to origional df'''
+    '''Returns a df with the columns are summed'''
 
     df_orig = df_US
 
@@ -180,23 +196,23 @@ def add_sum_column_US_df(df_US):
     df = df.reset_index()
 
     df = df.drop(['index'], axis = 1)
-    
-
-    # add_all_sum_columns(df_orig)
-
+ 
     return df
 
 
 
 def get_all_CountryRegion_sum_df(df):
+    ''' Returns a data frame that is summed by Country/Region.'''
      
     df = df.groupby('Country/Region').sum()
     
     return df
 
+
+
 def get_daily_change_df(df):
-    '''gets a data frame that is the column diff between values..'''
+    '''Returns a data frame that is the column diff between values..'''
 
     df = df.diff(axis = 1)
-    
+
     return df
