@@ -171,11 +171,11 @@ def get_whole_df(df1,df2):
 def add_all_sum_columns(df):
     '''adds a column that is the sum of the Country/Region column.'''
      
-        df_orig = df 
-        df = df.groupby('Country/Region').sum()
-        df = pd.concat([df_orig,df.reset_index()])
+    df_orig = df 
+    df = df.groupby('Country/Region').sum()
+    df = pd.concat([df_orig,df.reset_index()])
       
-        return df
+    return df
 
 
 
@@ -208,7 +208,12 @@ def get_all_CountryRegion_sum_df(df):
     
     return df
 
-
+def get_all_StateProvince_sum_df(df):
+    ''' Returns a data frame that is summed by Country/Region.'''
+     
+    df = df.groupby('Province/State').sum()
+    
+    return df
 
 def get_daily_change_df(df):
     '''Returns a data frame that is the column diff between values..'''

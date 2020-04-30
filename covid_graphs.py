@@ -222,9 +222,9 @@ def graph_new_daily_change(regions,yscale):
     url = get_url('deaths','US')
     dead_US_df = get_us_covid_df(url)
 
-    fig = plt.figure(num = 'Daily Change.',figsize = (10,7))
+    fig = plt.figure(num = 'Daily Change.', figsize = (10,7))
 
-    window_size = 3
+    window_size = 7
     start = 50
     days_tick = 7 
 

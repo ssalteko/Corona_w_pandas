@@ -41,16 +41,28 @@ def plot_daily_change(df1,df2,regions,start,window_size):
     df = get_whole_df(df1,df2)
 
     df = get_all_CountryRegion_sum_df(df)
+    df = df.rename(index = {'Georgia':"Georgian Republic"})
+    # print(df.iloc[50:100])
+    # print('\n\ndf2 b4: \n\n',df2)
+    df2 = get_all_StateProvince_sum_df(df2)
+    # print('\n\n df2 aftr: \n\n',df2)
+    df = pd.concat([df,df2])
+    # print('\n\n df: \n\n',df)
 
     df = get_daily_change_df(df)
-    
+    # print(df.loc['Alabama'])
     df1 = df.rolling(window_size, axis = 1).mean()
-    
+    # df1 = df.rolling(window_size, axis = 1).median()
+    # df3 = df1.rolling(2*window_size, axis = 1).median()
+    # print(df1)
+    # df = pd.concat([df,df2])
+    # print(df)
     dates = list(df.keys())[1:]
-
+    # print(dates)
     for region in regions:
         plt.bar(dates[start-1:],df.T[region][start:], label = region,alpha = 1)
         plt.plot(df1.T[region][start:], color = 'red')
+        # plt.plot(df3.T[region][start:],color = 'black')
 
     return df
   
